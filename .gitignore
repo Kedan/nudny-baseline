@@ -1,0 +1,10 @@
+build/
+cov/
+*.info
+*.cleaned
+*.o
+*.a
+*.so
+bazel-*
+~*
+ext

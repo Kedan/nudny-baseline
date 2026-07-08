@@ -1,0 +1,116 @@
+{
+	"version": 10,
+	"configurePresets": [
+		{
+			"name": "release",
+			"generator": "Ninja",
+			"binaryDir" : "build/release",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release",
+				"ENABLE_SANITIZERS": "OFF"
+			}
+		},
+		{
+			"name": "debug",
+			"generator": "Ninja",
+			"binaryDir": "build/debug",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"ENABLE_SANITIZERS": "OFF",
+				"CMAKE_CXX_FLAGS_DEBUG": " -Wshadow -Wconversion -Werror -g -O0"
+			}
+		},
+		{
+			"name": "coverage",
+			"binaryDir": "build/coverage",
+			"generator":"Ninja",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"ENABLE_COVERAGE": "ON"
+			}
+		},
+		{
+			"name": "sanitize",
+			"generator": "Ninja",
+			"binaryDir": "build/sanitize",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"ENABLE_SANITIZERS": "ON",
+				"CMAKE_CXX_FLAGS_DEBUG": " -Wshadow -Wconversion -Werror -g -O1"
+			}
+		},
+		{
+			"name": "valgrind",
+			"generator": "Ninja",
+			"binaryDir": "build/valgrind",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"ENABLE_SANITIZERS": "OFF",
+				"CMAKE_CXX_FLAGS_DEBUG": " -Wshadow -Wconversion -Werror -g -O0"
+			}
+		},
+		{
+			"name": "helgrind",
+			"generator": "Ninja",
+			"binaryDir": "build/helgrind",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_CXX_FLAGS_DEBUG": " -O0 -g -fno-omit-frame-pointer -pthread"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "release",
+			"configurePreset": "release"
+		},
+		{
+			"name": "debug",
+			"configurePreset": "debug"
+		},
+		{
+			"name": "coverage",
+			"configurePreset": "coverage"
+		},
+		{
+			"name": "sanitize",
+			"configurePreset": "sanitize"
+		},
+		{
+			"name": "valgrind",
+			"configurePreset": "valgrind"
+		},
+		{
+			"name": "helgrind",
+			"configurePreset": "helgrind"
+		}
+	],
+	"testPresets": [
+		{
+			"name": "debug",
+			"configurePreset": "debug",
+			"output": {
+				"outputOnFailure": true
+			},
+			"execution":{
+				"noTestsAction": "error"
+			}
+		},
+		{
+			"name": "coverage",
+			"configurePreset": "coverage"
+		},
+		{
+			"name": "sanitize",
+			"configurePreset": "sanitize"
+		},
+		{
+			"name": "valgrind",
+			"configurePreset": "valgrind"
+		},
+		{
+			"name": "helgrind",
+			"configurePreset": "helgrind"
+		}
+	]
+}
