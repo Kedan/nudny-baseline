@@ -1,0 +1,76 @@
+build:common --copt=-Wall
+build:common --copt=-Wextra
+build:common --copt=-Wpedantic
+build:common --copt=-Wconversion
+build:common --copt=-Wsign-conversion
+build:common --copt=-Wshadow
+build:common --copt=-Wold-style-cast
+build:common --copt=-Wnon-virtual-dtor
+build:common --copt=-Woverloaded-virtual
+build:common --copt=-Wnull-dereference
+build:common --copt=-Winvalid-pch
+build:common --copt=-Werror
+
+build:debug --config=common
+build:debug --compilation_mode=dbg
+build:debug --symlink_prefix=build-bazel/debug/
+
+build:release --config=common
+build:release --compilation_mode=opt
+build:release --symlink_prefix=build-bazel/release/
+
+build:asan --config=common
+build:asan --compilation_mode=dbg
+build:asan --copt=-fsanitize=address
+build:asan --copt=-fno-omit-frame-pointer
+build:asan --linkopt=-fsanitize=address
+build:asan --symlink_prefix=build-bazel/asan/
+
+build:ubsan --config=common
+build:ubsan --compilation_mode=dbg
+build:ubsan --copt=-fsanitize=undefined
+build:ubsan --copt=-fno-omit-frame-pointer
+build:ubsan --linkopt=-fsanitize=undefined
+build:ubsan --symlink_prefix=build-bazel/ubsan/
+
+build:test --config=common
+build:test --symlink_prefix=build-bazel/test/
+
+build:coverage --compilation_mode=dbg
+build:coverage --collect_code_coverage
+build:coverage --symlink_prefix=build-bazel/coverage/
+
+test:test --symlink_prefix=build-bazel/test/
+
+build:clang-tidy --config=debug \
+	--symlink_prefix=build-bazel/clang-tidy/ \
+	--copt=-O0 \
+	--copt=-g  \
+	--keep_going
+
+test:valgrind \
+	--run_under="valgrind \
+		--leak-check=full \
+		--show-leak-kinds=all \
+		--track-origins=yes \
+		--error-exitcode=1"
+
+test:helgrind 
+	--run_under="valgrind \
+		--tool=helgrind \
+		--history-level=full \
+		--error-exitcode=1"
+
+run:valgrind \
+	--run_under="valgrind \
+		--leak-check=full \
+		--show-leak-kinds=all \
+		--track-origins=yes \
+		--error-exitcode=1"
+		
+run:helgrind \
+	--run_under="valgrind \
+		--tool=helgrind \
+		--history-level=full \
+		--error-exitcode=1"
+
