@@ -57,6 +57,16 @@
 				"CMAKE_BUILD_TYPE": "Debug",
 				"CMAKE_CXX_FLAGS_DEBUG": " -O0 -g -fno-omit-frame-pointer -pthread"
 			}
+		},
+		{
+			"name": "clang-tidy",
+			"generator":"Ninja",
+			"binaryDir": "build/clang-tidy",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_EXPORT_COMPILE_COMMANDS": true,
+				"ENABLE_CLANG_TIDY": "ON"
+			}
 		}
 	],
 	"buildPresets": [
@@ -83,6 +93,10 @@
 		{
 			"name": "helgrind",
 			"configurePreset": "helgrind"
+		},
+		{
+			"name": "clang-tidy",
+			"configurePreset": "clang-tidy"
 		}
 	],
 	"testPresets": [
@@ -111,6 +125,10 @@
 		{
 			"name": "helgrind",
 			"configurePreset": "helgrind"
+		},
+		{
+			"name": "clang-tidy",
+			"configurePreset": "clang-tidy"
 		}
 	]
 }

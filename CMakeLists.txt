@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.23)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS, " -Wall -Wextra -Wpedantic")
-set(SANITIZER_FLAGS, "")
+set(CMAKE_CXX_FLAGS " -Wall -Wextra -Wpedantic")
+set(SANITIZER_FLAGS "")
 
 
 set(MOD_NAME "nudny-baseline")
@@ -16,6 +16,7 @@ option(RELEASE "Relese" OFF)
 option(ENABLE_VALGRIND "Enable Valgrind" OFF)
 option(ENABLE_SANITIZERS "Enable ASan + UBSan" OFF)
 option(ENABLE_COVERAGE "Enable coverage" OFF)
+option(ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
 
 project(${MOD_NAME} VERSION ${MOD_VERSION} DESCRIPTION ${MOD_DESCRIPTION} LANGUAGES CXX)
 
@@ -52,6 +53,11 @@ target_include_directories("App"
 	PUBLIC
 	include
 )
+
+if(ENABLE_CLANG_TIDY)
+	set_property(TARGET ${MOD_NAME} PROPERTY CXX_CLANG_TIDY clang-tidy)
+	set_property(TARGET App PROPERTY CXX_CLANG_TIDY clang-tidy)
+endif()
 
 if(RELEASE)
 	message(STATUS "==== Build release version ====")
