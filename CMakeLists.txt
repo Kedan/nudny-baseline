@@ -11,6 +11,7 @@ set(MOD_DESCRIPTION "Baseline for eny other project")
 set(MOD_VERSION 0.0.1)
 set(MOD_DIR "nudny/baseline")
 set(MOD_ALIAS "nudny::baseline")
+set(APP_NAME "nudny-baseline-app")
 
 option(RELEASE "Relese" OFF)
 option(ENABLE_VALGRIND "Enable Valgrind" OFF)
@@ -39,7 +40,7 @@ add_library(${MOD_NAME}
 	src/${MOD_DIR}/baseline.cpp
 )
 
-add_executable("App" 
+add_executable(${APP_NAME} 
 	src/${MOD_DIR}/baseline.cpp
 	src/main.cpp
 )
@@ -49,14 +50,14 @@ target_include_directories(${MOD_NAME}
 	include
 )
 
-target_include_directories("App"
+target_include_directories(${APP_NAME}
 	PUBLIC
 	include
 )
 
 if(ENABLE_CLANG_TIDY)
 	set_property(TARGET ${MOD_NAME} PROPERTY CXX_CLANG_TIDY clang-tidy)
-	set_property(TARGET App PROPERTY CXX_CLANG_TIDY clang-tidy)
+	set_property(TARGET ${APP_NAME} PROPERTY CXX_CLANG_TIDY clang-tidy)
 endif()
 
 if(RELEASE)
